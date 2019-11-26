@@ -11,6 +11,10 @@
     </div>
     <!-- dash instead of equal keep the code (forexample <strong>) -->
     <div class="description"><p><%- blog.body %></p></div>
+    <a class='ui pink basic button' href="/blogs/<%= blog._id %>/edit" >Edit</a>
+    <form id="delete" action="/blogs/<%= blog._id %>?_method=DELETE" method="POST">
+      <button class="ui pink basic button">Delete</button>
+    </form>
   </div>
 </div>
 
