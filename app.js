@@ -13,14 +13,32 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 //model
 const blogSchema = mongoose.Schema({
-    title: String,
-    image: String,
-    body: String,
-    created: {type: Date, default: Date.now}
-})
-const Blog = mongoose.model('Blog', blogSchema)
+  title: String,
+  image: String,
+  body: String,
+  created: { type: Date, default: Date.now }
+});
+const Blog = mongoose.model("Blog", blogSchema);
+//create a blog, one time
+/* Blog.create({
+    title: 'test01', 
+    image: 'https://cdn.pixabay.com/photo/2019/11/15/05/23/dog-4627679__340.png', 
+    body: 'sagdangop asdgagnaspow dwnoeg pfnlekqgnew pondisaggnd adsf'
+}) */
 //routes
+app.get("/", (req, res) => {
+  res.redirect("/blogs");
+});
 
+app.get("/blogs", (req, res) => {
+  Blog.find({}, (err, blogs) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("index", {blogs: blogs});
+    }
+  });
+});
 
 app.listen(3000, () => {
   console.log("the server is running");
